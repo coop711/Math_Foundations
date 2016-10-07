@@ -1,0 +1,337 @@
+---
+title: "Chapter 1 class"
+author: "coop711"
+date: "`r Sys.Date()`"
+output: html_document
+---
+ 
+<!--
+# 1.1 합과 곱
+
+
+## 합의 기호 $\sum$
+
+* $a_1$, $a_2$, $a_3$, $a_4$, $a_5$ 에 대하여 더하기 연산
+
+* $a_1 = 80$, $a_2 = 75$, $a_3 = 90$, $a_4 = 83$, $a_5 = 70$
+
+```{r, example 1.1}
+a <- c(80, 75, 90, 83, 70)
+a
+a[1]
+a[c(2, 5)]
+a[-3]
+length(a)
+a[length(a)]
+l.a <- length(a)
+a[l.a]
+```
+
+* 합의 계산
+
+$\sum_{i=1}^5 a_i$ 와 $\sum_{i=3}^{10} c_i$
+
+```{r, example 1.2}
+a[1] + a[2] + a[3] + a[4] + a[5]
+sum(a)
+(b <- rev(a))
+# b
+(c <- c(a, b))
+# c
+c[3:10]
+sum(c[3:10])
+```
+
+## $a_i$의 함수들의 합
+
+* $\sum_{i=1}^5 a_i^3$, $\sum_{i=1}^5 (a_i + b_i)$
+
+```{r, examps 1.3}
+a^3
+sum(a^3)
+a + b
+sum(a + b)
+sum(a) + sum(b)
+```
+# 행렬
+
+* $a_{ij}$ 는 행렬의 $i$번째 행, $j$번째 열에 있는 원소를 지칭.
+
+```{r, example 1.4}
+(A <- rbind(a, b))
+# A
+str(A)
+paste("r", 1:2)
+paste("r", 1:2, sep = "^")
+paste("c", 1:5, sep = "")
+(dimnames(A) <- list("Row" = paste("r", 1:2, sep = ""), "Col" = paste("c", 1:5, sep = "")))
+A
+A[1, 1]
+str(A[1, 1])
+A[1, 1, drop = FALSE]
+str(A[1, 1, drop = FALSE])
+A[2, 1]
+A[1, c(1, 3)]
+str(A[1, c(1, 3)])
+A[1, c(1, 3), drop = FALSE]
+str(A[1, c(1, 3), drop = FALSE])
+A[2, ]
+A[2, , drop = FALSE]
+A[-1, ]
+str(A[2, ])
+str(A[2, , drop = FALSE])
+A[, 1]
+str(A[, 1])
+A[, 1, drop = FALSE]
+str(A[, 1, drop = FALSE])
+B <- A
+B
+dimnames(B) <- NULL
+B
+```
+-->
+
+## 열의 합과 행의 합
+ 
+* $i=1, 2$ 행에 대하여 $j= 1, 2, 3$ 열에 속한 원소들의 합을 구하면
+
+```{r, example 1.5}
+A[1, 1:3]
+sum(A[1, 1:3])
+A[2, 1:3]
+sum(A[2, 1:3])
+apply(A[, 1:5], 2, sum)
+sum(A[1, 1:3]) + sum(A[2, 1:3])
+c(sum(A[1, 1:3]), sum(A[2, 1:3]))
+apply(A[, 1:3], 1, sum)
+sum(apply(A[, 1:3], 1, sum))
+sum(A[, 1:3])
+```
+
+* $j = 1, 2, 3$ 열에 대하여 $i = 1, 2$ 행에 속한 원소들의 합을 구하면
+
+```{r, example 1.6}
+A[, 1]
+sum(A[, 1])
+A[, 2]
+sum(A[, 2])
+A[, 1]
+sum(A[, 2])
+apply(A[, 1:3], 2, sum)
+apply(A[, 1:3], 2, mean)
+apply(A[, 1:3], 2, sd)
+sum(A[, 1]) + sum(A[, 2]) + sum(A[, 3])  
+apply(A[, 1:3], 2, sum)
+sum(apply(A[, 1:3], 2, sum))
+sum(A[, 1:3])
+apply(A, 1, sum)
+apply(A, 2, sum)
+rowSums(A)
+colSums(A)
+```
+
+## 곱의 기호 $\prod$
+
+```{r, example 1.7}
+a[1]*a[2]*a[3]*a[4]*a[5]
+prod(a)
+a[1:3]
+prod(a[1:3])
+a[c(1, 3, 5)]
+prod(a[c(1, 3, 5)])
+a + b
+prod(a + b)
+```
+
+## $\huge\cdot$ 기호의 활용
+
+* 열의 합이나 행의 합을 간단히 표현
+
+* $\sum_{i=1}^n a_{ij} = a_{\cdot j}$, $\sum_{j=1}^m a_{ij} = a_{i\cdot}$
+
+```{r, example 1.8}
+A
+sum(A[, 1])
+sum(A[, 2])
+sum(A[, 3])
+sum(A[, 4])
+sum(A[, 5])
+apply(A, 2, sum)
+colSums(A)
+sum(A[1, ])
+sum(A[2, ])
+apply(A, 1, sum)
+rowSums(A)
+```
+
+* $a_{\cdot\cdot} = \sum_{i=1}^n a_{i\cdot} = \sum_{j=1}^m a_{\cdot j} = \sum_{i=1}^n\sum_{j=1}^m a_{ij}$
+
+```{r, example 1.9}
+rowSums(A)
+sum(rowSums(A))
+colSums(A)
+sum(colSums(A))
+```
+
+* $a_{\cdot j}^2 = (\sum_{i=1}^n a_{ij})^2$ 과 $\sum_{i=1}^n a_{ij}^2$ 의 구분.
+
+* 합의 제곱
+
+```{r, example 1.10}
+A
+sum(A[, 1])
+sum(A[, 1])^2
+sum(A[, 2])
+sum(A[, 2])^2
+sum(A[, 3])
+sum(A[, 3])^2
+sum(A[, 4])
+sum(A[, 4])^2
+sum(A[, 5])
+sum(A[, 5])^2
+colSums(A)^2
+```
+
+* 제곱의 합
+
+```{r, example 1.11}
+A[, 1]
+A[, 1]^2
+sum(A[, 1]^2)
+A[, 2]
+A[, 2]^2
+sum(A[, 2]^2)
+A[, 3]
+A[, 3]^2
+sum(A[, 3]^2)
+A[, 4]
+A[, 4]^2
+sum(A[, 4]^2)
+A[, 5]
+A[, 5]^2
+sum(A[, 5]^2)
+A^2
+colSums(A^2)
+```
+
+# 행렬의 정의
+
+## 통계학 점수와 전체 평점
+
+*  열 방향으로 읽어들여 차원 정하기 
+
+```{r, example 2.1}
+(M1 <- matrix(c(80, 75, 90, 83, 70, 3.0, 3.5, 4.0, 3.1, 2.2), ncol = 2))
+str(M1)
+```
+
+* 통계학 점수와 전체평점, 즉 열 벡터 단위로 읽어서 합치기 
+
+```{r, example 2.2}
+stat.score <- c(80, 75, 90, 83, 70)
+GPA <- c(3.0, 3.5, 4.0, 3.1, 2.2)
+# M2 <- cbind("통계학점수" = stat.score, "평점" = GPA)
+M2 <- cbind(stat.score, GPA)
+M2
+col.name <- c("Score", "GPA")
+row.name <- paste("student", 1:5, sep = "")
+colnames(M2) <- col.name
+rownames(M2) <- row.name
+# dimnames(M2) <- list("Row" = row.name, "Col" = col.name)
+# dimnames(M2)[[1]] <- paste("student", 1:5, sep="")
+dimnames(M2) <- list("학생" = row.name, "성과" = col.name)
+M2
+str(M2)
+```
+
+* 각 학생의 통계학점수와 전체평점을 모아서 행 단위로 읽어서 합치기 
+
+```{r, example 2.3}
+M3 <- matrix(c(80, 3.0, 75, 3.5, 90, 4.0, 83, 3.1, 70, 2.2), ncol = 2, byrow = TRUE)
+M3
+```
+
+* $r\times c$ 행렬의 표시
+
+```{r, example 2.4}
+dim(M3)
+nrow(M3)
+ncol(M3)
+dimnames(M2)
+```
+
+* $2\times 3$ 행렬의 예시
+
+```{r, example 2.5}
+A <- matrix(c(3, -2, -1, 6, 8, 4), nrow = 2)
+A
+```
+
+* 대각행렬
+
+```{r, example 2.6}
+D <- diag(c(-3, 5, -6))
+D
+```
+
+* 주의 사항
+
+```{r, example 2.7}
+diag(3)
+diag(3, nrow = 1)
+```
+
+* 하삼각행렬과 상삼각행렬
+
+```{r, lower}
+T.lower <- matrix(c(1, 0, 0, 0, 3, 0, 0, 0, 3, -1, 3, 0, 4, 2, 5, 6), nrow=4)
+T.lower
+Matrix::isTriangular(T.lower)
+```
+
+```{r, upper}
+T.upper <- matrix(c(3, -2, 5, 0, 0, 5, -4, 2, 0, 0, 3, 7, 0, 0, 0, 0), nrow=4)
+T.upper
+Matrix::isTriangular(T.upper)
+```
+
+* Transition Probability Matrix
+
+```{r, transition propbability}
+P <- matrix(c(0.2, 0.4, 0.8, 0.6), nrow = 2)
+P
+rowSums(P)
+```
+
+# 1.3 벡터와 스칼라
+
+* 열 벡터와 행 벡터
+
+```{r vector_example}
+x <- c(3, -2, 0, 1)
+is.vector(x)
+is.matrix(x)
+dim(x)
+length(x)
+str(x)
+x.mat <- matrix(x, ncol=1)
+x.mat
+is.vector(x.mat)
+is.matrix(x.mat)
+dim(x.mat)
+length(x.mat)
+str(x.mat)
+t(x.mat)
+is.vector(t(x.mat))
+is.matrix(t(x.mat))
+dim(t(x.mat))
+length(t(x.mat))
+str(t(x.mat))
+```
+
+* 작업 파일 저장
+
+```{r, save}
+save.image(file = "chapter_01_contents.rda")
+```
+

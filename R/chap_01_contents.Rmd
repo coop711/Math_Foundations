@@ -1,17 +1,11 @@
 ---
 title: "Chapter 1 class"
 author: "coop711"
-date: "2015년 9월 5일"
+date: "`r Sys.Date()`"
 output: html_document
 ---
  
 # 1.1 합과 곱
-
-* 작업 디렉토리 정리 
-
-```{r}
-setwd("~/Dropbox/Works/Class/Math_Foundations/")
-```
 
 ## 합의 기호 $\sum$
 

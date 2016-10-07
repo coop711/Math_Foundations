@@ -1,7 +1,0 @@
-name: Publish Document
-account: rpubs
-server: rpubs.com
-appId: https://api.rpubs.com/api/v1/document/159062/e789b872209940ef8ad675c74cc2c8b1
-bundleId: https://api.rpubs.com/api/v1/document/159062/e789b872209940ef8ad675c74cc2c8b1
-url: http://rpubs.com/kwlee58/159062
-when: 1457353783.5499
